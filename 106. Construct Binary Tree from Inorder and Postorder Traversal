@@ -49,12 +49,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // write your code here
-        // Instantiating the outer class
-        // Animals classA = new Animals();
-        // Accessing the display_Inner() method.
-        // classA.display_Inner();
-
+       
          int[] preorder = new int[] {3,9, 20,15, 7};
          int[] inorder = new int[]{9, 3, 15, 20, 7};
          int[] postorder = new int[]{9, 15, 7, 20, 3};
