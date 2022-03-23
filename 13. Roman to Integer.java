@@ -33,6 +33,7 @@ class Solution {
                     break;
                 case 'X':
                     value +=10;
+                    if (c_pre=='I') value-=2;
                     break;
                 case 'V':
                     value+=5;
