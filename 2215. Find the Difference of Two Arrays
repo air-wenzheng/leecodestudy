@@ -1,0 +1,84 @@
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+           // Create listOfLists in Java
+        List<List<Integer>> listOfLists = new ArrayList<>();
+         // Creating innerList 
+        List<Integer> innerList = new ArrayList<>();
+        // find diff list in nums1
+        for (int i=0; i<nums1.length; i++)
+        {
+            int num1 = nums1[i];
+            int inside2 = 0;
+            for (int j=0; j<nums2.length; j++) {
+                if (num1==nums2[j]) inside2=1;
+            }
+            if (inside2 ==0 & !innerList.contains(num1))
+                   innerList.add(num1);
+        }
+         // Adding innerList to listOfLists
+        listOfLists.add(innerList);
+        // find diff list in num2
+         // Creating innerList 
+        List<Integer> innerList2 = new ArrayList<>();
+        // find diff list in nums1
+        for (int i=0; i<nums2.length; i++)
+        {
+            int num2 = nums2[i];
+            int inside1 = 0;
+            for (int j=0; j<nums1.length; j++) {
+                if (num2==nums1[j]) inside1=1;
+            }
+            if (inside1 ==0 & !innerList2.contains(num2))
+                   innerList2.add(num2);
+        }
+         // Adding innerList to listOfLists
+        listOfLists.add(innerList2);
+        
+        return listOfLists;
+    }
+}
+
+=================
+Runtime: 207 ms
+Memory Usage: 54.8 MB
+=================
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+
+        Set<Integer> set1 = Arrays.stream(nums1).boxed().collect(Collectors.toSet());
+        Set<Integer> set2 = Arrays.stream(nums2).boxed().collect(Collectors.toSet());
+
+        return Arrays.asList(
+            set1.stream().filter(x -> !set2.contains(x)).collect(Collectors.toList()),
+            set2.stream().filter(x -> !set1.contains(x)).collect(Collectors.toList())
+        );
+    }
+
+    }
+    
+===============
+Runtime: 27 ms
+Memory Usage: 55.2 MB
+==============
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+
+         Set<Integer> set1=findDistinctNum(nums1);
+        Set<Integer> set2=findDistinctNum(nums2);
+        List<List<Integer>> ans=new ArrayList<>();
+        ans.add(difference(set1,set2));
+        ans.add(difference(set2,set1));
+        return ans;
+    }
+    public List<Integer> difference(Set<Integer> set1,Set<Integer> set2){
+        List<Integer> list=new ArrayList<>();
+        for(int a:set1){if(!set2.contains(a)){list.add(a);}}
+        return list;
+    }
+    
+    ===============
+Runtime: 18 ms
+Memory Usage: 54 MB
+==============
