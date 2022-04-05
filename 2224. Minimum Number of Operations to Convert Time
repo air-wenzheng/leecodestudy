@@ -1,0 +1,70 @@
+You are given two strings current and correct representing two 24-hour times.
+
+24-hour times are formatted as "HH:MM", where HH is between 00 and 23, and MM is between 00 and 59. The earliest 24-hour time is 00:00, and the latest is 23:59.
+
+In one operation you can increase the time current by 1, 5, 15, or 60 minutes. You can perform this operation any number of times.
+
+Return the minimum number of operations needed to convert current to correct.
+
+------------------------------
+( My first code)
+import java.text.*;
+import java.util.*;
+
+
+class Solution {
+    public int convertTime(String current, String correct) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        String output;
+
+        try {
+        Date dateCur = format.parse(current);
+        int hourCur = dateCur.getHours(); 
+        int minCur   = dateCur.getMinutes();
+        
+        Date dateCor = format.parse(correct);
+        int hourCor = dateCor.getHours(); 
+        int minCor   = dateCor.getMinutes();
+        
+        int diff_in_Min = (hourCor - hourCur)*60 + minCor-minCur;
+        int operator = 0;
+        int divValue = 0;
+        int modValue = 0;
+        while (diff_in_Min>0){
+            divValue = diff_in_Min / 60;
+            if (divValue>0) {
+                operator = operator+divValue;
+                modValue = diff_in_Min % 60;
+                diff_in_Min = modValue;
+                            }
+            divValue = diff_in_Min / 15;
+            if (divValue>0) {
+                operator = operator+divValue;
+                modValue = diff_in_Min % 15;
+                diff_in_Min = modValue;
+                            }
+            divValue = diff_in_Min / 5;
+            if (divValue>0) {
+                operator = operator+divValue;
+                modValue = diff_in_Min % 5;
+                diff_in_Min = modValue;
+                            }
+            divValue = diff_in_Min / 1;
+            if (divValue>0) {
+                operator = operator+divValue;
+                modValue = diff_in_Min % 1;
+                diff_in_Min = modValue;
+                            }
+        }
+        return operator;
+        }
+        catch (ParseException e) {
+              output = "Can't parse input of " + current;
+            return 0;
+        }
+}
+}
+###############################
+Runtime: 26 ms
+Memory Usage: 44.6 MB
+###############################
