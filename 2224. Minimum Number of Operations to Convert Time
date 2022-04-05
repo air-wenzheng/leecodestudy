@@ -68,3 +68,85 @@ class Solution {
 Runtime: 26 ms
 Memory Usage: 44.6 MB
 ###############################
+
+// Solution 2:
+class Solution {
+    public int convertTime(String current, String correct) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        String output;
+
+        try {
+        Date dateCur = format.parse(current);
+        int hourCur = dateCur.getHours(); 
+        int minCur   = dateCur.getMinutes();
+        
+        Date dateCor = format.parse(correct);
+        int hourCor = dateCor.getHours(); 
+        int minCor   = dateCor.getMinutes();
+        
+            int t1 = hourCur*60+minCur;
+            int t2 = hourCor*60+minCor;
+       
+            int ans = 0;    
+           List<Integer> unitList = new ArrayList<Integer>();
+             unitList.add(60);
+             unitList.add(15);
+             unitList.add(5);
+             unitList.add(1);
+            System.out.println(t1);
+            System.out.println(t2);
+           
+    for (int d : unitList)
+       // 
+      while (t2 - t1 >= d) {
+          System.out.println(d);
+        ++ans;
+        t1 += d;
+      }
+            System.out.println(ans);
+    return ans;
+        }
+        catch (ParseException e) {
+              output = "Can't parse input of " + current;
+            return 0;
+        }
+}
+}
+###############################
+Runtime: 75 ms
+Memory Usage: 44.6 MB
+###############################
+// Solution 3
+class Solution {
+    public int convertTime(String from, String to){
+        int diff = min(to) - min(from), ops[] = {60, 15, 5, 1}, r = 0;
+        for(int i = 0; i < ops.length && diff > 0; diff = diff % ops[i++])
+            r += diff / ops[i];
+        return r;
+    }
+
+    int min(String time){
+        String[] t = time.split(":");
+        return Integer.parseInt(t[0]) * 60 + Integer.parseInt(t[1]);
+    }   
+}
+###############################
+Runtime: 5 ms
+Memory Usage: 42.3 MB
+###############################
+
+// However, c++ code is way faster than java
+
+class Solution {
+public:
+    int convertTime(string current, string correct) {
+     auto toMin = [](string &s) { 
+        return s[0] * 600 + s[1] * 60 + s[3] * 10 + s[4] ;
+    };
+    int d = toMin(correct) - toMin(current);
+    return d / 60 + d % 60 / 15 + d % 15 / 5 + d % 5;    
+    }
+};
+###############################
+Runtime: 0 ms
+Memory Usage: 5.9 MB
